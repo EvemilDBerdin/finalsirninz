@@ -62,7 +62,7 @@
                 <div class="modal-body" style="padding: 0px 50px 0px 50px;"><br>
                     <div>
                         <label for="username">Profile Picture (optional)</label>
-                        <input style="min-height: 44px;" type="file" class="form-control" name="fileInput"> <!--  required="required" -->
+                        <input style="min-height: 44px;" type="file" class="form-control" name="fileInput">
                     </div>
                     <div class="mt-3">
                         <label for="firstname">First Name</label>
@@ -92,13 +92,10 @@
                     <div>
                         <label for="password">Password</label>
                         <div class="d-flex">
-                            <input type="password" class="form-control" data-parsley-minlength="8" data-parsley-maxlength="22" data-parsley-pattern="[a-zA-Z0-9\pL\s\-]+$" name="password" required="required">
+                            <input type="password" class="form-control" data-parsley-minlength="8" data-parsley-maxlength="22" name="password" required="required">
                             <button class="btn" type="button" id="passwordShowToggle"><i class="fas fa-eye"></i></button>
                         </div>
-                    </div><br>
-                    <!-- <div class="mb-3 d-flex justify-content-end mt-2">
-                        <input type="checkbox" id="chck" required="required"><label for="chck" class="text-primary fst-italic text-decoration-underline">&nbspI Agree.</label>
-                    </div> -->
+                    </div><br> 
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Enroll Now</button>

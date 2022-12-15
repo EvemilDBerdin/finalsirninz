@@ -21,7 +21,7 @@
         <div class="container d-flex justify-content-center mt-5 mb-5" >
             <div style="margin-top: 50px;">
                 <!-- <img src="https://firebasestorage.googleapis.com/v0/b/mydjangoproject-74464.appspot.com/o/ses(1).png?alt=media&token=e1440331-1a20-46d1-8522-248a132dfa8f" alt=""> -->
-                <p class="font-bold" style="font-size: 55px; cursor: default;">Student Exam System</p>
+                <p class="font-bold" style="font-size: 55px; cursor: default;">Berdin System</p>
             </div>
         </div>
     </header> 

@@ -4,7 +4,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Manage extends MY_Controller
 {
     public function index()
-    { 
+    {
         if (isset($_SESSION['userdata'])) {
             $session = $_SESSION['userdata'];
             if ($session->user_type == "1") {
@@ -59,7 +59,11 @@ class Manage extends MY_Controller
     {
         $data = array();
         foreach ($_POST as $key => $value) {
-            $data[$key] = $value;
+            if($key == 'cpassword'){}
+            else if($key == 'password'){
+                $data[$key] = md5($value);
+            }
+            else $data[$key] = $value;
         }
         $data['user_type'] = 2;
         $data['user_status'] = 0;
@@ -70,6 +74,7 @@ class Manage extends MY_Controller
 
         $options['where'] = array(
             'email' => $data['email'],
+            'username' => $data['username'],
             'user_status' => 0,
             'user_type' => 2
         );
@@ -84,25 +89,24 @@ class Manage extends MY_Controller
 
         if ($res) response(status_res('fail'), "", "Email already exists. please choose another one.");
         else {
-            if(!empty($_FILES['fileInput']['name'])){
+            if (!empty($_FILES['fileInput']['name'])) {
                 $data['user_image'] = $_FILES['fileInput']['name'];
-                
+
                 $success = $this->do_upload();
-    
+
                 if ($success == true) {
                     $result = update('users', $data, $where);
-                    if($result) response(status_res('success'), "", "Student updated successfully.");
+                    if ($result) response(status_res('success'), "", "Student updated successfully.");
                     else response(status_res('fail'), "", "Fail to update.");
                 } else {
                     response(status_res('fail'), "", "Fail to upload max 25 mb.");
                 }
-            }
-            else{
+            } else {
                 $result = update('users', $data, $where);
                 if ($result) response(status_res('success'), "", "Student updated successfully.");
                 else response(status_res('fail'), "", "Failed.");
-            } 
-        } 
+            }
+        }
     }
     public function do_upload()
     {
@@ -152,7 +156,8 @@ class Manage extends MY_Controller
         }
     }
 
-    function viewManageModal(){
+    function viewManageModal()
+    {
         $id = $this->input->post('users_id');
         $options['join'] = array(
             'users' => 'users.users_id = exam.user_id'
@@ -162,5 +167,55 @@ class Manage extends MY_Controller
         );
         $res = getrow('exam', $options);
         json($res);
+    }
+
+    function addManageModalForm()
+    {
+        $data = array();
+        foreach ($_POST as $key => $value) {
+            if($key == 'cpassword'){}
+            else if($key == 'password'){
+                $data[$key] = md5($value); 
+            }
+            else $data[$key] = $value; 
+        }
+        $data['user_type'] = 2;
+        $data['user_status'] = 0; 
+        $options['where'] = array(
+            'username' => $data['username']
+        ); 
+
+        $res = getrow('users', $options);
+
+        if ($res) response(status_res('fail'), "", "Email already exists. please choose another one.");
+        else {
+            if (!empty($_FILES['fileInput']['name'])) {
+                $data['user_image'] = $_FILES['fileInput']['name'];
+
+                $success = $this->do_upload();
+
+                if ($success == true) {
+                    $result = insert('users', $data);
+                    if ($result) response(status_res('success'), "", "Student registered successfully.");
+                    else response(status_res('fail'), "", "Fail to register.");
+                } else {
+                    response(status_res('fail'), "", "Fail to upload max 25 mb.");
+                }
+            } else {
+                $result = insert('users', $data);
+                if ($result) response(status_res('success'), "", "Student registered successfully.");
+                else response(status_res('fail'), "", "Fail to register.");
+            }
+        }
+    }
+
+    function unlockFromDataBase(){ 
+        $where = array(
+            'users_id' => $_POST['users_id']
+        );
+        $data['user_status'] = 0;
+        $result = update('users', $data, $where);
+        if($result) response(status_res('success'), "", "Student Successfully unlock."); 
+        else response(status_res('fail'), "", "Student failed to unlock");
     }
 }

@@ -189,8 +189,7 @@ if (!function_exists('status')) {
 
 if (!function_exists('udata')) {
 	function udata()
-	{
-		$session = $_SESSION['userdata'];
-		return $session;
+	{ 
+		return $_SESSION['userdata'];
 	}
 }

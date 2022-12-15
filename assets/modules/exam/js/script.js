@@ -63,7 +63,8 @@ function teDatatables() {
       "width": "15%",
       "render": function (data, type, row, meta) {
         var str = '';
-        str += `<button class="btn btn-sm btn-success clickBTN" onclick="viewExamResult(${row.e_id}, ${row.users_id}); event.preventDefault();">View</button>
+        // <button class="btn btn-sm btn-success clickBTN" onclick="viewExamResult(${row.e_id}, ${row.users_id}); event.preventDefault();">View</button>
+        str += `
 	      <button class="btn btn-sm btn-outline-danger clickBTN" onclick="deleteConfirm(${row.e_id}); event.preventDefault();">Delete</button>`
         return str;
       }

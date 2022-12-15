@@ -4,28 +4,51 @@ $(document).ready(() => {
     $('#nmanagePasswordShowToggle').click(() => {
         if ($('#editManageModalForm').find('input[name="password"]').attr('type') === "password") {
             $(this).find('input[name="password"]').attr('type', 'text')
-            $(this).find('button#nmanagePasswordShowToggle').css('color', 'green') 
+            $(this).find('button#nmanagePasswordShowToggle').css('color', 'green')
         }
         else if ($('#editManageModalForm').find('input[name="password"]').attr('type') === "text") {
             $(this).find('input[name="password"]').attr('type', 'password')
-            $(this).find('button#nmanagePasswordShowToggle').css('color', 'black') 
+            $(this).find('button#nmanagePasswordShowToggle').css('color', 'black')
         }
     })
     $('#cmanagePasswordShowToggle').click(() => {
         if ($('#editManageModalForm').find('input[name="cpassword"]').attr('type') === "password") {
             $(this).find('input[name="cpassword"]').attr('type', 'text')
-            $(this).find('button#cmanagePasswordShowToggle').css('color', 'green') 
+            $(this).find('button#cmanagePasswordShowToggle').css('color', 'green')
         }
         else if ($('#editManageModalForm').find('input[name="cpassword"]').attr('type') === "text") {
             $(this).find('input[name="cpassword"]').attr('type', 'password')
-            $(this).find('button#cmanagePasswordShowToggle').css('color', 'black') 
+            $(this).find('button#cmanagePasswordShowToggle').css('color', 'black')
         }
     })
 
-    if($('#editManageModalForm').find('input[name="password"]').val() != ''){
+    if ($('#editManageModalForm').find('input[name="password"]').val() != '') {
         console.log('password have value')
         $('#editManageModalForm').find('input[name="cpassword"]').attr('required', 'required')
     }
+
+    $('#addManageModalForm').submit((e) => {
+        e.preventDefault()
+        let data = new FormData(e.currentTarget) 
+        sendAjax(base_url + 'manage/addManageModalForm', data).then((res) => {
+            console.log(res)
+            if (res.response == 200) {
+                Swal.fire({ position: 'top-center', icon: 'success', title: res.message, showConfirmButton: false, timer: 1500 }).then(() => {
+                    dis.tmDatatables()
+                    $('#editManageModal').modal('hide')
+                })
+            }
+            else {
+                Swal.fire({
+                    position: 'top-center',
+                    icon: 'error',
+                    title: res.message,
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+        })
+    })
 })
 
 function tmDatatables() {
@@ -52,7 +75,7 @@ function tmDatatables() {
             {
                 "data": "lastname",
                 "width": "12%"
-            }, 
+            },
             {
                 "data": "email",
                 "width": "18%"
@@ -89,6 +112,9 @@ function tmDatatables() {
                         str += `<button class="btn btn-sm btn-success clickBTN" onclick="restoreStudent(${row.users_id}); event.preventDefault();"><i class="fas fa-trash-restore"></i> Restore</button>
                     <button class="btn btn-sm btn-danger clickBTN" onclick="deleteFromDataBase(${row.users_id}); event.preventDefault();"><i class="fa fa-trash" aria-hidden="true"></i>
                     </i> Delete</button>`;
+                    }
+                    else if(row.user_status == '2'){
+                        str += `<button class="btn btn-sm btn-warning clickBTN" onclick="unlockManageModal(${row.users_id})"><i class="fas fa-edit"></i>Unlock</button>`;
                     }
                     else {
                         str += `<button class="btn btn-sm btn-outline-primary clickBTN" onclick="editManageModal(${row.users_id})"><i class="fas fa-edit"></i> Edit</button> 
@@ -210,6 +236,24 @@ function deleteFromDataBase(id) {
             dis.sendAjax(base_url + 'manage/deleteFromDataBase', data).then((r) => {
                 dis.tmDatatables()
                 if (r.response == 200) Swal.fire('Deleted!', r.message, 'success')
+                else Swal.fire({ icon: 'error', title: 'Oops...', text: 'Something went wrong!' })
+            })
+        }
+    })
+}
+function unlockManageModal(id){
+    Swal.fire({
+        title: 'Are you sure you want to unlock this student?',
+        text: 'Students will be unable to log in once you unlock it!',
+        showCancelButton: true,
+        confirmButtonText: 'Confirm',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            let data = new FormData()
+            data.append('users_id', id)
+            dis.sendAjax(base_url + 'manage/unlockFromDataBase', data).then((r) => {
+                dis.tmDatatables()
+                if (r.response == 200) Swal.fire('Student Unlock!', r.message, 'success')
                 else Swal.fire({ icon: 'error', title: 'Oops...', text: 'Something went wrong!' })
             })
         }

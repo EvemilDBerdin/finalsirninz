@@ -53,46 +53,10 @@ else{
                             <img width="30" src="<?= base_url('assets/uploads/logo.png') ?>" alt="homepage" class="dark-logo" />  
                         </b> 
                         <span>  
-                            <img width="180" src="https://www.proweaver.com/wp-content/uploads/2019/06/logo.png" alt="homepage" class="proweaverdarklogo" style="background-repeat: no-repeat;"/>  
+                            <img width="70" src="https://firebasestorage.googleapis.com/v0/b/profile-evemilberdin.appspot.com/o/Berdin.ico?alt=media&token=164b6ee2-ca57-4c58-8c3f-ddcb68e8bad7" alt="homepage" class="proweaverdarklogo" style="background-repeat: no-repeat;"/>  
                         </span>
                 </a>
             </div> 
-
-            <!-- <div class="navbar-collapse"> 
-                    <ul class="navbar-nav mr-auto">
-
-                        <li class="nav-item"> <a class="nav-link sidebartoggler hidden-sm-down waves-effect waves-dark"
-                                href="javascript:void(0)"><i class="sl-icon-menu"></i></a> </li> 
-                        <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up waves-effect waves-dark"
-                                href="javascript:void(0)"><i class="sl-icon-menu"></i></a> </li>
-                    </ul> 
-                <ul class="navbar-nav my-lg-0"> 
- 
-                    <li class="nav-item dropdown u-pro">
-                        <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="<?= base_url('assets/uploads/').$session->user_image ?>" alt="user" class="" /> <span class="hidden-md-down"><?= $session->username ?> &nbsp;<i class="fa fa-angle-down"></i></span> </a>
-                        <div class="dropdown-menu dropdown-menu-right animated flipInY">
-                            <ul class="dropdown-user">
-                                <li>
-                                    <div class="dw-user-box">
-                                        <div class="u-img"><img src="<?= base_url('assets/uploads/').$session->user_image ?>" alt="user"></div>
-                                    </div>  
-                                    <div class="u-text">
-                                        <h4>Username: <?= $session->username ?></h4>
-                                        <p class="text-muted">Full Name: <?= $session->firstname ." ". $session->lastname?></p>
-                                        <p class="text-muted">Email: <?= $session->email ?></p>
-                                    </div>
-                                </li>  
-                                <li> 
-                                    <a href="javascript:void(0)" id="admin_logout">
-                                        <i class="fa fa-power-off"></i> Logout
-                                    </a>
-                                </li>
-                            </ul>
-
-                        </div>
-                    </li>
-                </ul>
-            </div> -->
 
             <div class="navbar-collapse"> 
                     <ul class="navbar-nav mr-auto">
