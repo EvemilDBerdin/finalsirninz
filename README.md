@@ -7,6 +7,8 @@ Project name: Student system
 
 Website-Screenshots: folder db/website-screenshots
 
+Website-responsiveness: 90%
+
 language: php framework-Code Igniter
 Jquery-Datatable
 
